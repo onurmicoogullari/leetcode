@@ -4,7 +4,8 @@ public static class TwoSum
 {
     /* 
      
-        1. Two Sums (https://leetcode.com/problems/two-sum/description/)
+        1. Two Sums
+        Link: https://leetcode.com/problems/two-sum/description/
         
         Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
@@ -55,7 +56,7 @@ public static class TwoSum
                 return [indicies[x], i];
             }
 
-            indicies.Add(nums[i], i);
+            _ = indicies.TryAdd(nums[i], i);
         }
 
         throw new ArgumentException("There is no two values in 'nums' that sums up to the value of 'target'.");
