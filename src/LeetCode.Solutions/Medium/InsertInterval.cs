@@ -1,6 +1,6 @@
 ﻿namespace LeetCode.Solutions.Medium;
 
-public class InsertInterval
+public static class InsertInterval
 {
     /*
         57. Insert Interval
