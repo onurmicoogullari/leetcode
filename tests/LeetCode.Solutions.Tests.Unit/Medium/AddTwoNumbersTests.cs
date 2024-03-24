@@ -3,7 +3,7 @@ using LeetCode.Solutions.Medium;
 
 namespace LeetCode.Solutions.Tests.Unit.Medium;
 
-public class AddTwoNumbers
+public class AddTwoNumbersTests
 {
     // Arrange
     public static IEnumerable<object[]> TestData
@@ -12,9 +12,10 @@ public class AddTwoNumbers
         {
             return new object[][]
             {
-                
                 new object[] { new ListNode(2, new ListNode(4, new ListNode(3))), new ListNode(5, new ListNode(6, new ListNode(4))), new ListNode(7, new ListNode(0, new ListNode(8)))},
+
                 new object[] { new ListNode(0), new ListNode(0), new ListNode(0)},
+
                 new object[] { new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))))))), new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))), new ListNode(8, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(0, new ListNode(0, new ListNode(0, new ListNode(1))))))))},
             };
         }

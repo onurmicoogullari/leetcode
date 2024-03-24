@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LeetCode.Solutions.Tests.Unit.Easy;
 
-public class TwoSum
+public class TwoSumTests
 {
     // Arrange
     public static IEnumerable<object[]> TestData
