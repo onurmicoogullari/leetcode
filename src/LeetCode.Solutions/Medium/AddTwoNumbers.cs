@@ -35,9 +35,9 @@
 public class ListNode
 {
     public int val;
-    public ListNode next;
+    public ListNode? next;
 
-    public ListNode(int val = 0, ListNode next = null)
+    public ListNode(int val = 0, ListNode? next = null)
     {
         this.val = val;
         this.next = next;
@@ -57,22 +57,22 @@ public static class AddTwoNumbers
             int x = l1 is not null ? l1.val : 0;
             int y = l2 is not null ? l2.val : 0;
             int sum = carry + x + y;
-            
+
             carry = sum / 10;
             current.next = new ListNode(sum % 10);
             current = current.next;
 
             if (l1 is not null)
             {
-                l1 = l1.next;
+                l1 = l1.next!;
             }
 
             if (l2 is not null)
             {
-                l2 = l2.next;
+                l2 = l2.next!;
             }
         }
 
-        return tmpHead.next;
+        return tmpHead.next!;
     }
 }
