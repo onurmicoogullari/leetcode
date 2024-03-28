@@ -7,8 +7,7 @@ public static class LongestSubstringWithoutRepeatingCharacters
         Link: https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 
         Given a string s, find the length of the longest 
-        substring
-        without repeating characters.
+        substring without repeating characters.
 
         Example 1:
 
@@ -101,8 +100,7 @@ public static class LongestSubstringWithoutRepeatingCharacters
             result = Math.Max(result, right - left + 1);
             right++;
         }
-
-
+        
         return result;
     }
 

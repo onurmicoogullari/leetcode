@@ -2,7 +2,7 @@ using FluentAssertions;
 
 namespace LeetCode.Solutions.Tests.Unit.Easy;
 
-public class LongestCommonPrefix
+public class LongestCommonPrefixTests
 {
     // Arrange
     public static IEnumerable<object[]> TestData

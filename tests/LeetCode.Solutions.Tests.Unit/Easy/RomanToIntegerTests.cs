@@ -2,7 +2,7 @@ using FluentAssertions;
 
 namespace LeetCode.Solutions.Tests.Unit.Easy;
 
-public class RomanToInteger
+public class RomanToIntegerTests
 {
     // Arrange
     public static IEnumerable<object[]> TestData
