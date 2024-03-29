@@ -15,8 +15,6 @@ public class LRUCache
         void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
         The functions get and put must each run in O(1) average time complexity.
 
-
-
         Example 1:
 
            Input
@@ -46,13 +44,14 @@ public class LRUCache
            At most 2 * 105 calls will be made to get and put.
     */
     
-    private int _cap;
-    private DoubleLinkedList _list = new DoubleLinkedList();
-    private Dictionary<int, ListNode> _cache;
+    private readonly int _cap;
+    private readonly DoubleLinkedList _list;
+    private readonly Dictionary<int, ListNode> _cache;
     
     public LRUCache(int capacity)
     {
         _cap = capacity;
+        _list = new DoubleLinkedList();
         _cache = new Dictionary<int, ListNode>(_cap);
     }
 
