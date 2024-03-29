@@ -3,7 +3,7 @@ using FluentAssertions;
 
 namespace LeetCode.Solutions.Tests.Unit.Hard;
 
-public class MedianOfTwoSortedArrays
+public class MedianOfTwoSortedArraysTests
 {
     // Arrange
     public static IEnumerable<object[]> TestData
