@@ -5,26 +5,26 @@ public class LRUCache
     /*
         146. LRU Cache
         Link: https://leetcode.com/problems/lru-cache/description/
-        
+
         Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
-       
+
         Implement the LRUCache class:
-       
+
         LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
         int get(int key) Return the value of the key if the key exists, otherwise return -1.
         void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
         The functions get and put must each run in O(1) average time complexity.
-       
-        
-       
+
+
+
         Example 1:
-       
+
            Input
            ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
            [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
            Output
            [null, null, null, 1, null, -1, null, -1, 3, 4]
-       
+
            Explanation
            LRUCache lRUCache = new LRUCache(2);
            lRUCache.put(1, 1); // cache is {1=1}
@@ -36,109 +36,125 @@ public class LRUCache
            lRUCache.get(1);    // return -1 (not found)
            lRUCache.get(3);    // return 3
            lRUCache.get(4);    // return 4
-        
-       
+
+
         Constraints:
-       
+
            1 <= capacity <= 3000
            0 <= key <= 104
            0 <= value <= 105
            At most 2 * 105 calls will be made to get and put.
     */
-
-    private Node _head = new Node();
-    private Node _tail = new Node();
-    private Dictionary<int, Node> _cache;
+    
     private int _cap;
-
+    private DoubleLinkedList _list = new DoubleLinkedList();
+    private Dictionary<int, ListNode> _cache;
+    
     public LRUCache(int capacity)
     {
-        _cache = new Dictionary<int, Node>(capacity);
         _cap = capacity;
-        _head.next = _tail;
-        _tail.prev = _head;
+        _cache = new Dictionary<int, ListNode>(_cap);
     }
-    
-    public int Get(int key)
-    {
-        int result = -1;
-        
-        if (_cache.TryGetValue(key, out Node node))
-        {
-            result = node.val;
-            Remove(node);
-            Add(node);
-        }
 
-        return result;
-    }
-    
-    public void Put(int key, int value) {
-        if (_cache.TryGetValue(key, out Node node))
-        {
-            Remove(node);
-            node.val = value;
-            Add(node);
+    public void Put(int key, int value)
+    {
+        // Update key if it exists
+        // If it doesn't, add it to cache
+        // If capacity is full, remove the least recently used (LRU) before adding the new one
+        
+        if (_cache.TryGetValue(key, out ListNode? currentNode))
+        { 
+            _list.Remove(currentNode);
+            currentNode.Value = value;
+            _list.Add(currentNode);
         }
         else
         {
             if (_cache.Count == _cap)
             {
-                _cache.Remove(_tail.prev.key);
-                Remove(_tail.prev);
+                ListNode lruNode = _list.LastOrDefault()!;
+                _list.Remove(lruNode);
+                _cache.Remove(lruNode.Key);
             }
             
-            Node nodeToAdd = new Node(key, value);
-            _cache.Add(key, nodeToAdd);
-            Add(nodeToAdd);
+            ListNode newNode = new ListNode(key, value);
+            _list.Add(newNode);
+            _cache.Add(key, newNode);
         }
-    }
-
-    private void Add(Node nodeToAdd)
-    {
-        // Take the current most recent node
-        Node mostRecentNode = _head.next;
-        
-        // Assign the new most recent nodes 'next' to the old most recent node
-        nodeToAdd.next = mostRecentNode;
-        
-        // Assign the old most recent nodes 'prev' to the new most recent node
-        mostRecentNode.prev = nodeToAdd;
-        
-        // Assign the 'dummy heads' 'next' to the new most recent node
-        _head.next = nodeToAdd;
-        
-        // Assign the new most recent nodes 'prev' to the 'dummy heads' 'prev'
-        nodeToAdd.prev = _head;
-    }
-
-    private void Remove(Node nodeToRemove)
-    {
-        // Take the last recent nodes 'next' and 'prev' nodes
-        Node next = nodeToRemove.next;
-        Node prev = nodeToRemove.prev;
-        
-        // Link the above nodes to the new last recent node
-        next.prev = prev;
-        prev.next = next;
+       
     }
     
-    class Node
+    public int Get(int key)
     {
-        public int key;
-        public int val;
-        public Node prev;
-        public Node next;
+        int result = -1;
 
-        public Node()
+        if (_cache.TryGetValue(key, out ListNode? node))
         {
-            
+            result = node.Value;
+            _list.Remove(node);
+            _list.Add(node);
         }
-        
-        public Node(int key, int val)
+
+        return result;
+    }
+    
+    public class DoubleLinkedList
+    {
+        private readonly ListNode _head;
+        private readonly ListNode _tail;
+
+        public DoubleLinkedList()
         {
-            this.key = key;
-            this.val = val;
+            _head = new ListNode(0, 0);
+            _tail = new ListNode(0, 0);
+        
+            _head.Next = _tail;
+            _tail.Prev = _head;
+        }
+
+        public void Add(ListNode newNode)
+        {
+            // Get the most recent node
+            ListNode mostRecent = _head.Next;
+        
+            // Push the most recent node forward, making the new node the most recent
+            newNode.Next = mostRecent;
+            mostRecent.Prev = newNode;
+
+            // Point the head to the new most recent node
+            _head.Next = newNode;
+            newNode.Prev = _head;
+        }
+
+        public void Remove(ListNode nodeToRemove)
+        {
+            ListNode next = nodeToRemove.Next;
+            ListNode prev = nodeToRemove.Prev;
+
+            next.Prev = prev;
+            prev.Next = next;
+        }
+
+        public ListNode? LastOrDefault()
+        {
+            return _tail.Prev;
+        }
+    }
+    
+    public class ListNode
+    {
+        public int Key { get; set; }
+        public int Value { get; set; }
+        public ListNode Next { get; set; }
+        public ListNode Prev { get; set; }
+
+        public ListNode(int key, int val)
+        {
+            Key = key;
+            Value = val;
         }
     }
 }
+
+
+
