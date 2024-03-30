@@ -96,8 +96,8 @@ public class LRUCache
 
         return result;
     }
-    
-    public class DoubleLinkedList
+
+    private class DoubleLinkedList
     {
         private readonly ListNode _head;
         private readonly ListNode _tail;
@@ -140,7 +140,7 @@ public class LRUCache
         }
     }
     
-    public class ListNode
+    internal class ListNode
     {
         public int Key { get; set; }
         public int Value { get; set; }
