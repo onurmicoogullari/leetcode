@@ -57,10 +57,6 @@ public class LRUCache
 
     public void Put(int key, int value)
     {
-        // Update key if it exists
-        // If it doesn't, add it to cache
-        // If capacity is full, remove the least recently used (LRU) before adding the new one
-        
         if (_cache.TryGetValue(key, out ListNode? currentNode))
         { 
             _list.Remove(currentNode);
