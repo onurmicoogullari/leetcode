@@ -36,7 +36,7 @@ public class ValidParenthesesTests
     public void Solution2_ShouldReturnTrue_IfParenthesesAreValid(string s, bool expected)
     {
         // Act
-        bool result = Solutions.Easy.ValidParentheses.Solution1(s);
+        bool result = Solutions.Easy.ValidParentheses.Solution2(s);
         
         // Assert
         result.Should().Be(expected);
